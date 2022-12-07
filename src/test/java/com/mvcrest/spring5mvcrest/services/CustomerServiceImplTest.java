@@ -52,7 +52,6 @@ class CustomerServiceImplTest {
         customer.setLastName(LAST_NAME);
         when(customerRepository.findById(anyLong())).thenReturn(Optional.of(customer));
         CustomerDTO customerDTO = customerService.getCustomerById(ID);
-        assertEquals(customerDTO.getId(), ID);
         assertEquals(customerDTO.getFirstName(), FIRST_NAME);
         assertEquals(customerDTO.getLastName(), LAST_NAME);
     }

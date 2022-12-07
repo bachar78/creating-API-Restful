@@ -19,30 +19,11 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Category fruits = new Category();
-        fruits.setName("Fruits");
+        loadCategories();
+        loadCustomers();
+    }
 
-        Category dried = new Category();
-        dried.setName("Dried");
-
-        Category fresh = new Category();
-        fresh.setName("Fresh");
-
-        Category exotic = new Category();
-        exotic.setName("Exotic");
-
-        Category nuts = new Category();
-        nuts.setName("Nuts");
-
-        categoryRepository.save(fruits);
-        categoryRepository.save(dried);
-        categoryRepository.save(fresh);
-        categoryRepository.save(exotic);
-        categoryRepository.save(nuts);
-
-
-        System.out.println("Data Category Loaded = " + categoryRepository.count());
-
+    private void loadCustomers() {
         Customer bachar = new Customer();
         bachar.setFirstName("Bachar");
         bachar.setLastName("Daowd");
@@ -70,5 +51,31 @@ public class Bootstrap implements CommandLineRunner {
         customerRepository.save(lama);
 
         System.out.println("Data Customer Loaded = " + customerRepository.count());
+    }
+
+    private void loadCategories() {
+        Category fruits = new Category();
+        fruits.setName("Fruits");
+
+        Category dried = new Category();
+        dried.setName("Dried");
+
+        Category fresh = new Category();
+        fresh.setName("Fresh");
+
+        Category exotic = new Category();
+        exotic.setName("Exotic");
+
+        Category nuts = new Category();
+        nuts.setName("Nuts");
+
+        categoryRepository.save(fruits);
+        categoryRepository.save(dried);
+        categoryRepository.save(fresh);
+        categoryRepository.save(exotic);
+        categoryRepository.save(nuts);
+
+
+        System.out.println("Data Category Loaded = " + categoryRepository.count());
     }
 }

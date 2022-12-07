@@ -17,13 +17,14 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class CustomerControllerTest {
-    public static final Long ID = 2L;
+    public static final String FIRST_NAME = "Bachar";
 
     @InjectMocks
     CustomerController controller;
@@ -42,11 +43,8 @@ class CustomerControllerTest {
     @Test
     void getAllCustomers() throws Exception {
         CustomerDTO bachar = new CustomerDTO();
-        bachar.setId(1L);
         CustomerDTO samer = new CustomerDTO();
-        bachar.setId(2L);
         CustomerDTO bassam = new CustomerDTO();
-        bachar.setId(3L);
         List<CustomerDTO> customers = Arrays.asList(bachar, bassam, samer);
         when(customerService.getAllCustomers()).thenReturn(customers);
         mockMvc.perform(get("/api/v1/customers/")
@@ -60,11 +58,11 @@ class CustomerControllerTest {
     @Test
     void getCustomerById() throws Exception {
         CustomerDTO customer = new CustomerDTO();
-        customer.setId(ID);
-        when(customerService.getCustomerById(ID)).thenReturn(customer);
+        customer.setFirstName(FIRST_NAME);
+        when(customerService.getCustomerById(anyLong())).thenReturn(customer);
         mockMvc.perform(get("/api/v1/customers/2")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", equalTo(2)));
+                .andExpect(jsonPath("$.firstName", equalTo("Bachar")));
     }
 }
