@@ -36,7 +36,11 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO getCustomerById(Long id) {
 //        return customerMapper.customerToCustomerDTO(customerRepository.findById(id).get());
         return customerRepository.findById(id)
-                .map(customerMapper::customerToCustomerDTO)
+                .map(customer -> {
+                    CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
+                    customerDTO.setCustomerUrl("/api/v1/customers/" + id);
+                    return customerDTO;
+                })
                 .orElseThrow(RuntimeException::new);
     }
 
@@ -68,7 +72,9 @@ public class CustomerServiceImpl implements CustomerService {
             if (customerDTO.getLastName() != null) {
                 customer.setLastName(customerDTO.getLastName());
             }
-            return customerMapper.customerToCustomerDTO(customerRepository.save(customer));
+            CustomerDTO returnedCustomer = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
+            returnedCustomer.setCustomerUrl("/api/v1/customers/" + id);
+            return returnedCustomer;
         }).orElseThrow(RuntimeException::new);
     }
 }
