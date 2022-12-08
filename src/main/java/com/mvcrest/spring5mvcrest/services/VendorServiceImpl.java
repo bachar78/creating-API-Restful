@@ -51,7 +51,7 @@ public class VendorServiceImpl implements VendorService {
         vendor.setId(id);
         Vendor savedVendor = vendorRepository.save(vendor);
         VendorDTO returnedVendor = vendorMapper.vendorToVendorDTO(savedVendor);
-        returnedVendor.setVendorUrl("/api/v1/vendors/" + id);
+        returnedVendor.setVendorUrl("/api/v1/vendor/" + id);
         return returnedVendor;
     }
 
@@ -61,9 +61,9 @@ public class VendorServiceImpl implements VendorService {
             if (vendorDTO.getName() != null) {
                 vendor.setName(vendorDTO.getName());
             }
-            VendorDTO returnedVendorDTO = vendorMapper.vendorToVendorDTO(vendorRepository.save(vendor));
-            returnedVendorDTO.setVendorUrl("/api/v1/vendors" + id);
-            return returnedVendorDTO;
+            VendorDTO returnedVendor = vendorMapper.vendorToVendorDTO(vendorRepository.save(vendor));
+            returnedVendor.setVendorUrl("/api/v1/vendor/" + id);
+            return returnedVendor;
         }).orElseThrow(ResourceNotFoundException::new);
     }
 

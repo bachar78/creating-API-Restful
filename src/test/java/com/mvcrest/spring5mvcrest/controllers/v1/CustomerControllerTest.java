@@ -117,7 +117,6 @@ class CustomerControllerTest extends AbstractRestControllerTest {
     void updatePatchCustomer() throws Exception {
         CustomerDTO customer = new CustomerDTO();
         customer.setFirstName("Bachar");
-//        customer.setLastName("Daowd");
         CustomerDTO returnSavedCustomer = new CustomerDTO();
         returnSavedCustomer.setFirstName(customer.getFirstName());
         returnSavedCustomer.setLastName("Daowd");
