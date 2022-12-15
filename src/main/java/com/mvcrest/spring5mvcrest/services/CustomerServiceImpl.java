@@ -2,6 +2,7 @@ package com.mvcrest.spring5mvcrest.services;
 
 import com.mvcrest.spring5mvcrest.api.v1.mapper.CustomerMapper;
 import com.mvcrest.spring5mvcrest.api.v1.model.CustomerDTO;
+import com.mvcrest.spring5mvcrest.controllers.v1.exceptionHandler.ApiRequestException;
 import com.mvcrest.spring5mvcrest.domain.Customer;
 import com.mvcrest.spring5mvcrest.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
                     customerDTO.setCustomerUrl("/api/v1/customers/" + id);
                     return customerDTO;
                 })
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(()-> new ApiRequestException("Customer was not found"));
     }
 
     @Override
